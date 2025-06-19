@@ -75,6 +75,10 @@ jobs:
 
         name: Dev Development
         needs: docker
+        environment: development
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
+
         runs-on: ubuntu-latest
         steps:
         - name: Checkout Repository
@@ -88,7 +92,7 @@ jobs:
         - name: Set K8s context
           uses: ossrs/k8s-set-context-action@v1
           with:
-            kubeconfig: '${{ secrets.KUBECONFIG }}'
+            kubeconfig: '${{env.KUBECONFIG }}'
 
         - name: Run K8s
           run: |
